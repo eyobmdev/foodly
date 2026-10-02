@@ -1,11 +1,37 @@
-import { Text, View } from "react-native";
+import { offers } from "@/constants";
+import { FlatList, Image, Pressable, View,Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Fragment } from "react/jsx-runtime";
 
 export default function Index() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-5xl text-center font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
-    </View>
+    <SafeAreaView>
+      <FlatList
+        data={offers}
+        renderItem={({ item, index }) => {
+          return (
+            <View>
+              <Pressable
+                className="offer-card"
+                style={{ backgroundColor: item.color }}
+              >
+                {({ pressed }) => (
+                  <Fragment>
+                    <View className="h-full w-1/2">
+                      <Image className="size-full" source={item.image} resizeMode="contain" />
+                    </View>
+                    <View >
+                      <Text className="offer-card_info">
+                        {item.title}
+                      </Text>
+                    </View>
+                  </Fragment>
+                )}
+              </Pressable>
+            </View>
+          );
+        }}
+      />
+    </SafeAreaView>
   );
 }
